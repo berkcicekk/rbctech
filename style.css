@@ -107,6 +107,32 @@ html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: 80px;
+}
+
+/* Custom Scrollbar - Modern Design */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-black);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #333333 0%, #1a1a1a 100%);
+    border-radius: 10px;
+    border: 2px solid var(--color-black);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #444444 0%, #2a2a2a 100%);
+}
+
+/* Firefox Scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #333333 var(--color-black);
 }
 
 body {
@@ -280,7 +306,7 @@ button {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.85) 60%, rgba(0, 0, 0, 0.95) 100%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.6) 60%, rgba(0, 0, 0, 0.8) 100%);
     pointer-events: none;
 }
 
@@ -298,7 +324,7 @@ button {
 }
 
 .hero-title {
-    font-size: 8rem;
+    font-size: 10rem;
     font-weight: var(--font-weight-light);
     margin: 0;
     letter-spacing: -0.02em;
@@ -317,6 +343,82 @@ button {
 
 .hero-subtitle strong {
     font-weight: var(--font-weight-bold);
+}
+
+/* Scroll Down Button */
+.scroll-down {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    z-index: 10;
+    transition: var(--transition-base);
+    cursor: pointer;
+}
+
+.scroll-down:hover {
+    color: var(--color-white);
+}
+
+.scroll-down:hover .scroll-down-icon {
+    transform: translateY(4px);
+    border-color: var(--color-white);
+}
+
+.scroll-down-icon {
+    width: 32px;
+    height: 48px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 8px;
+    transition: var(--transition-base);
+    animation: scrollBounce 2s infinite;
+}
+
+.scroll-down-icon svg {
+    animation: scrollArrow 2s infinite;
+}
+
+.scroll-down-text {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+@keyframes scrollBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes scrollArrow {
+
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translateY(4px);
+        opacity: 1;
+    }
 }
 
 /* ===================================
@@ -348,6 +450,12 @@ button {
     height: auto;
     border-radius: var(--radius-lg);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    transition: transform var(--transition-slow), box-shadow var(--transition-slow);
+}
+
+.services-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
 }
 
 .services-content {
@@ -366,15 +474,16 @@ button {
     border: 1px solid var(--color-gray-200);
     border-radius: var(--radius-md);
     padding: var(--spacing-lg);
-    transition: var(--transition-base);
+    transition: all var(--transition-base);
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
+    will-change: transform, box-shadow;
 }
 
 .service-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     border-color: var(--color-gray-300);
     background-color: var(--color-white);
 }
@@ -605,11 +714,24 @@ button {
     }
 
     .hero-title {
-        font-size: 4rem;
+        font-size: 4.5rem;
     }
 
     .hero-subtitle {
         font-size: var(--font-size-base);
+    }
+
+    .scroll-down {
+        bottom: 30px;
+    }
+
+    .scroll-down-icon {
+        width: 28px;
+        height: 42px;
+    }
+
+    .scroll-down-text {
+        font-size: 10px;
     }
 
     .services {
@@ -641,7 +763,7 @@ button {
 
 @media (max-width: 480px) {
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 3rem;
     }
 
     .hero-subtitle {
